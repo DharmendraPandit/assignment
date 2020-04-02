@@ -1,0 +1,34 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /api
+
+
+spring:
+  application:
+    name: employee-management-service
+  profiles:
+    active: local
+  security:
+    basic:
+      enabled: false
+
+hystrix:
+  threadpool:
+    default:
+      # Maximum number of concurrent requests when using thread pools (Default: 10)
+      coreSize: 3
+      # Maximum LinkedBlockingQueue size - -1 for using SynchronousQueue (Default: -1)
+      maxQueueSize: -1
+      # Queue size rejection threshold (Default: 5)
+      queueSizeRejectionThreshold: 3
+  command:
+    default:
+      circuitBreaker:
+        sleepWindowInMilliseconds: 60000
+        requestVolumeThreshold: 2
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 60000

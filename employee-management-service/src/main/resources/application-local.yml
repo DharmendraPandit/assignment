@@ -1,0 +1,9 @@
+spring:
+  data:
+    mongodb:
+      #uri: mongodb://root:root@localhost:27019/admin
+      uri: mongodb://localhost:27017/netent-employees
+
+payroll:
+  #url: http://localhost:9091/payroll
+  url: http://localhost:8085/hire/skills/employees
