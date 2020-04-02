@@ -25,33 +25,53 @@ Contanarization:
    1. Port: 9090
    2. Context path: /api
    3. Service urls:
-   POST: http://localhost:9090/api/employees/create (user creation)
-   payload:
-   {
-   	"name":"Dharmendra",
-   	"age": 30,
-   	"salary": 50000
-   }
-   GET: http://localhost:9090/api/employees/search?name=dharmendra (user search base on name)
-   GET: http://localhost:9090/api/employees/search?age=30 (user search base on age)
-   POST: http://localhost:9090/api/employees/create/list (user creation in bulk)
-   payload:
-   [
-       {
+      1. POST: http://localhost:9090/api/employees/create (user creation)
+           payload:
+           {
+            "name":"Dharmendra",
+            "age": 30,
+            "salary": 50000
+           }
+      2. GET: http://localhost:9090/api/employees/search?name=dharmendra (user search base on name)
+      3. GET: http://localhost:9090/api/employees/search?age=30 (user search base on age)
+      4. POST: http://localhost:9090/api/employees/create/list (user creation in bulk)
+           payload:
+           [
+               {
+                   "name": "Dharmendra",
+                   "age": 30,
+                   "salary": 50000
+               }
+           ]
+           response:
+           {
+               "success": [
+                   {
+                       "id": "12345",
+                       "name": "Dharmendra",
+                       "age": 30,
+                       "salary": null,
+                       "createdOn": null
+                   }
+               ]
+           }
+
+Assumption about Payroll Service:
+ 1. base url: http://localhost:9091/payroll
+ 2. employee create url: POST: http://localhost:9091/payroll/create
+    payload:
+        {
            "name": "Dharmendra",
            "age": 30,
            "salary": 50000
-       }
-   ]
-   response:
-   {
-       "success": [
+        }
+ 3. employee search url: GET: http://localhost:9091/payroll/search?name=Dharmendra/http://localhost:9091/payroll/search?age=30
+ 4. employee create in bulk url: POST: http://localhost:9091/payroll/create/list
+    payload:
+        [
            {
-               "id": "12345",
                "name": "Dharmendra",
                "age": 30,
-               "salary": null,
-               "createdOn": null
+               "salary": 50000
            }
        ]
-   }
