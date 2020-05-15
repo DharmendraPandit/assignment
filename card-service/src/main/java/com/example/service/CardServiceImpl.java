@@ -33,7 +33,7 @@ public class CardServiceImpl implements CardService {
 
 
     @Override
-    public void transact(double amount, long cardId) throws InsufficientFundException {
+    public synchronized void transact(double amount, long cardId) throws InsufficientFundException {
         List<CreditCardPayment> creditCardPayments = creditCardPaymentRepository.findByCardIdOrderByPaymentReceivedDateDesc(cardId);
         if (!creditCardPayments.isEmpty() && CardStatus.ACTIVE.equals(creditCardPayments.get(0).getStatus())) {
             CreditCardPayment creditCardPayment = creditCardPayments.get(0);
@@ -52,7 +52,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public void withdraw(double amount, long cardId) throws InsufficientFundException {
+    public synchronized void withdraw(double amount, long cardId) throws InsufficientFundException {
         List<CreditCardPayment> creditCardPayments = creditCardPaymentRepository.findByCardIdOrderByPaymentReceivedDateDesc(cardId);
         if (!creditCardPayments.isEmpty() && CardStatus.ACTIVE.equals(creditCardPayments.get(0).getStatus())) {
             CreditCardPayment creditCardPayment = creditCardPayments.get(0);
